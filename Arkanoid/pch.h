@@ -4,7 +4,7 @@
 //
 
 #pragma once
-//tool kit dx11
+
 #include "Audio.h"
 #include "BufferHelpers.h"
 #include "CommonStates.h"

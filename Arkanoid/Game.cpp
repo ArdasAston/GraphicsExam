@@ -325,7 +325,7 @@ void Game::LoadBrick(ID3D11Device1* device)
     ComPtr<ID3D11Resource> resource;
     DX::ThrowIfFailed(
         CreateWICTextureFromFile(device,
-            L"Assets/Brick.png",
+            L"Assets/element_grey_rectangle.png",
             resource.GetAddressOf(),
             textureBrick.ReleaseAndGetAddressOf()));
 
