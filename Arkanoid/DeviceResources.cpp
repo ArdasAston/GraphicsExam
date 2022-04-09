@@ -35,7 +35,7 @@ namespace
             nullptr,                    // No need to keep the D3D device reference.
             nullptr,                    // No need to know the feature level.
             nullptr                     // No need to keep the D3D device context reference.
-            );
+        );
 
         return SUCCEEDED(hr);
     }
@@ -60,17 +60,17 @@ DeviceResources::DeviceResources(
     UINT backBufferCount,
     D3D_FEATURE_LEVEL minFeatureLevel,
     unsigned int flags) noexcept :
-        m_screenViewport{},
-        m_backBufferFormat(backBufferFormat),
-        m_depthBufferFormat(depthBufferFormat),
-        m_backBufferCount(backBufferCount),
-        m_d3dMinFeatureLevel(minFeatureLevel),
-        m_window(nullptr),
-        m_d3dFeatureLevel(D3D_FEATURE_LEVEL_9_1),
-        m_outputSize{0, 0, 1, 1},
-        m_colorSpace(DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709),
-        m_options(flags | c_FlipPresent),
-        m_deviceNotify(nullptr)
+    m_screenViewport{},
+    m_backBufferFormat(backBufferFormat),
+    m_depthBufferFormat(depthBufferFormat),
+    m_backBufferCount(backBufferCount),
+    m_d3dMinFeatureLevel(minFeatureLevel),
+    m_window(nullptr),
+    m_d3dFeatureLevel(D3D_FEATURE_LEVEL_9_1),
+    m_outputSize{ 0, 0, 1, 1 },
+    m_colorSpace(DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709),
+    m_options(flags | c_FlipPresent),
+    m_deviceNotify(nullptr)
 {
 }
 
@@ -185,7 +185,7 @@ void DeviceResources::CreateDeviceResources()
             device.GetAddressOf(),  // Returns the Direct3D device created.
             &m_d3dFeatureLevel,     // Returns feature level of device created.
             context.GetAddressOf()  // Returns the device immediate context.
-            );
+        );
     }
 #if defined(NDEBUG)
     else
@@ -209,7 +209,7 @@ void DeviceResources::CreateDeviceResources()
             device.GetAddressOf(),
             &m_d3dFeatureLevel,
             context.GetAddressOf()
-            );
+        );
 
         if (SUCCEEDED(hr))
         {
@@ -231,7 +231,7 @@ void DeviceResources::CreateDeviceResources()
             d3dInfoQueue->SetBreakOnSeverity(D3D11_MESSAGE_SEVERITY_CORRUPTION, true);
             d3dInfoQueue->SetBreakOnSeverity(D3D11_MESSAGE_SEVERITY_ERROR, true);
 #endif
-            D3D11_MESSAGE_ID hide [] =
+            D3D11_MESSAGE_ID hide[] =
             {
                 D3D11_MESSAGE_ID_SETPRIVATEDATA_CHANGINGPARAMS,
             };
@@ -257,7 +257,8 @@ void DeviceResources::CreateWindowSizeDependentResources()
     }
 
     // Clear the previous window size specific context.
-    m_d3dContext->OMSetRenderTargets(0, nullptr, nullptr);
+    ID3D11RenderTargetView* nullViews[] = { nullptr };
+    m_d3dContext->OMSetRenderTargets(static_cast<UINT>(std::size(nullViews)), nullViews, nullptr);
     m_d3dRenderTargetView.Reset();
     m_d3dDepthStencilView.Reset();
     m_renderTarget.Reset();
@@ -278,7 +279,7 @@ void DeviceResources::CreateWindowSizeDependentResources()
             backBufferHeight,
             backBufferFormat,
             (m_options & c_AllowTearing) ? DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING : 0u
-            );
+        );
 
         if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
         {
@@ -326,7 +327,7 @@ void DeviceResources::CreateWindowSizeDependentResources()
             &swapChainDesc,
             &fsSwapChainDesc,
             nullptr, m_swapChain.ReleaseAndGetAddressOf()
-            ));
+        ));
 
         // This class does not support exclusive full-screen mode and prevents DXGI from responding to the ALT+ENTER shortcut
         ThrowIfFailed(m_dxgiFactory->MakeWindowAssociation(m_window, DXGI_MWA_NO_ALT_ENTER));
@@ -343,7 +344,7 @@ void DeviceResources::CreateWindowSizeDependentResources()
         m_renderTarget.Get(),
         &renderTargetViewDesc,
         m_d3dRenderTargetView.ReleaseAndGetAddressOf()
-        ));
+    ));
 
     if (m_depthBufferFormat != DXGI_FORMAT_UNKNOWN)
     {
@@ -355,20 +356,20 @@ void DeviceResources::CreateWindowSizeDependentResources()
             1, // This depth stencil view has only one texture.
             1, // Use a single mipmap level.
             D3D11_BIND_DEPTH_STENCIL
-            );
+        );
 
         ThrowIfFailed(m_d3dDevice->CreateTexture2D(
             &depthStencilDesc,
             nullptr,
             m_depthStencil.ReleaseAndGetAddressOf()
-            ));
+        ));
 
         CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
         ThrowIfFailed(m_d3dDevice->CreateDepthStencilView(
             m_depthStencil.Get(),
             &depthStencilViewDesc,
             m_d3dDepthStencilView.ReleaseAndGetAddressOf()
-            ));
+        ));
     }
 
     // Set the 3D rendering viewport to target the entire window.
@@ -377,7 +378,7 @@ void DeviceResources::CreateWindowSizeDependentResources()
         0.0f,
         static_cast<float>(backBufferWidth),
         static_cast<float>(backBufferHeight)
-        );
+    );
 }
 
 // This method is called when the Win32 window is created (or re-created).
@@ -529,7 +530,7 @@ void DeviceResources::CreateFactory()
     if (!debugDXGI)
 #endif
 
-    ThrowIfFailed(CreateDXGIFactory1(IID_PPV_ARGS(m_dxgiFactory.ReleaseAndGetAddressOf())));
+        ThrowIfFailed(CreateDXGIFactory1(IID_PPV_ARGS(m_dxgiFactory.ReleaseAndGetAddressOf())));
 }
 
 // This method acquires the first available hardware adapter.
@@ -560,11 +561,11 @@ void DeviceResources::GetHardwareAdapter(IDXGIAdapter1** ppAdapter)
                 continue;
             }
 
-        #ifdef _DEBUG
+#ifdef _DEBUG
             wchar_t buff[256] = {};
             swprintf_s(buff, L"Direct3D Adapter (%u): VID:%04X, PID:%04X - %ls\n", adapterIndex, desc.VendorId, desc.DeviceId, desc.Description);
             OutputDebugStringW(buff);
-        #endif
+#endif
 
             break;
         }

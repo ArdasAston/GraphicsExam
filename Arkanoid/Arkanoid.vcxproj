@@ -196,6 +196,9 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\ballGrey.png" />
+    <Image Include="Assets\element_grey_rectangle.png" />
+    <Image Include="Assets\paddleRed.png" />
     <Image Include="directx.ico" />
   </ItemGroup>
   <ItemGroup>

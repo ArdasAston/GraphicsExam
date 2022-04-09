@@ -40,6 +40,15 @@
     <Image Include="directx.ico">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\ballGrey.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\element_grey_rectangle.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\paddleRed.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="settings.manifest">
