@@ -1,7 +1,7 @@
 #pragma once
-#define SPRITEWIDTH 64
+#define SPRITEWIDTH 104
 #define BORDEROFFSET 78
-#define PADDLESPEED 1.5f
+#define PADDLESPEED 3.f
 
 using namespace DirectX::SimpleMath;
 using namespace std;

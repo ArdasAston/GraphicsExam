@@ -11,11 +11,11 @@
 #include "Ball.h"
 #include "Brick.h"
 
-#define BRICKOFFSETWIDTH 93
+#define BRICKOFFSETWIDTH 110
 #define BRICKOFFSETHEIGHT 50
 
-#define BRICKSROW 4
-#define BRICKSCOLUMN 7
+#define BRICKSROW 5
+#define BRICKSCOLUMN 6
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.

@@ -1,8 +1,8 @@
 #pragma once
-#define PADDLEOFFSET 50
-#define SPRITEWIDTH 64
-#define BALLOFFSET 34
-#define BALLSPEED 1.5f
+#define PADDLEOFFSET 43
+#define SPRITEWIDTH 22
+#define BALLOFFSET 36
+#define BALLSPEED 3.f
 
 using namespace DirectX::SimpleMath;
 using namespace std;

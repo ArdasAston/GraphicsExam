@@ -1,7 +1,7 @@
 #pragma once
 
-#define BRICKSPRITEWIDTHOFFSET 70
-#define BRICKSPRITEHEIGHTOFFSET 34
+#define BRICKSPRITEWIDTHOFFSET 64
+#define BRICKSPRITEHEIGHTOFFSET 32
 
 using namespace DirectX::SimpleMath;
 using namespace std;

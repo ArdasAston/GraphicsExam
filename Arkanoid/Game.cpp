@@ -100,29 +100,29 @@ void Game::Render()
     // TODO: Add your rendering code here.
     m_spriteBatch->Begin(SpriteSortMode_Deferred, m_states->NonPremultiplied());
 
-    // Render paddle
+    // draw paddle
     m_spriteBatch->Draw(texturePaddle.Get(), paddle->GetPosition(), nullptr,
-        Colors::White, 0.f, m_origin, 0.5f);
+        Colors::White, 0.f, m_origin, 1.f);
 
-    // Render ball
+    // draw ball
     if (ball->IsAttached()) {
         ball->SetPosition(paddle->GetPosition());
     }
     m_spriteBatch->Draw(textureBall.Get(), ball->GetPosition(), nullptr,
-        Colors::White, 0.f, m_origin, 0.3f);
+        Colors::White, 0.f, m_origin, 1.f);
 
-    // Render Bricks
+    // draw Bricks
     int countColor = 0;
     for (Brick* b : bricks)
     {
         if (!b->IsDestroyed()) {
             if (countColor % 2 == 0) {
                 m_spriteBatch->Draw(textureBrick.Get(), b->GetPosition(), nullptr,
-                    Colors::Red, 0.f, m_origin, 0.3f);
+                    Colors::Green, 0.f, m_origin, 1.f);
             }
             else {
                 m_spriteBatch->Draw(textureBrick.Get(), b->GetPosition(), nullptr,
-                    Colors::Blue, 0.f, m_origin, 0.3f);
+                    Colors::Blue, 0.f, m_origin, 1.f);
             }
         }
         countColor++;
